@@ -6,11 +6,13 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:41:50 by ablondel          #+#    #+#             */
-/*   Updated: 2022/02/14 17:40:58 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/02/14 18:30:15 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
+https://cdn.intra.42.fr/pdf/pdf/34895/fr.subject.pdf
+https://www.cplusplus.com/reference/vector/vector/
 https://anderberg.me/2016/07/04/c-custom-iterators/
 https://stackoverflow.com/questions/21275190/c-custom-collection-reverse-iterator-with-similar-behaviour-to-stdvector-imp
 https://www.geeksforgeeks.org/program-to-create-custom-vector-class-in-c/
@@ -153,9 +155,37 @@ vector class
 	// ELEMENT ACCESS //
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	operator[] // access element at index
+		reference operator[] (size_type n);
+		const_reference operator[] (size_type n) const;
+			Returns a reference to the element at position n in the vector container.
+			A similar member function, vector::at, has the same behavior as this operator function, except that vector::at is bound-checked 
+			and signals if the requested position is out of range by throwing an out_of_range exception.
+			Portable programs should never call this function with an argument n that is out of range, since this causes undefined behavior.
+
 	at // access element
+		reference at (size_type n);
+		const_reference at (size_type n) const;
+			Returns a reference to the element at position n in the vector.
+			The function automatically checks whether n is within the bounds of valid elements in the vector, throwing an out_of_range exception if it is not 
+			(i.e., if n is greater than, or equal to, its size). This is in contrast with member operator[], that does not check against bounds.
+				n: Position of an element in the container.
+				If this is greater than, or equal to, the vector size, an exception of type out_of_range is thrown.
+				Notice that the first element has a position of 0 (not 1).
+				Member type size_type is an unsigned integral type.
+	
 	front // access first element
+		reference front();
+		const_reference front() const;
+			Returns a reference to the first element in the vector.
+			Unlike member vector::begin, which returns an iterator to this same element, this function returns a direct reference.
+			Calling this function on an empty container causes undefined behavior.
+	
 	back // access last element
+		reference back();
+		const_reference back() const;
+			Returns a reference to the last element in the vector.
+			Unlike member vector::end, which returns an iterator just past this element, this function returns a direct reference.
+			Calling this function on an empty container causes undefined behavior.
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// MODIFIERS //
@@ -173,6 +203,5 @@ vector class
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	get_allocator // get allocator 
 
-/////////////////////////////
 
 */
