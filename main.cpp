@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:41:50 by ablondel          #+#    #+#             */
-/*   Updated: 2022/02/14 17:13:59 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/02/14 17:39:36 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,10 @@ vector class
 		
 		(1) empty container constructor; 
 			explicit vector (const allocator_type& alloc = allocator_type());
-		
 		(2) fill constructor; 
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
-		
 		(3) range constructor; 
 			template <class InputIterator> vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
-		
 		(4) copy constructor; 
 			vector (const vector& x);
 	
@@ -99,16 +96,55 @@ vector class
 			If the vector object is const-qualified, the function returns a const_reverse_iterator. Otherwise, it returns a reverse_iterator.
 			Member types reverse_iterator and const_reverse_iterator are reverse random access iterator types (pointing to an element and to a const element, respectively). See vector member types.
 
-
-	
 	// CAPACITY //
 	size // return size of the vector
-	max_size // return maximum size of the vector 
-	resize // change size
-	capacity // return size of allocated storage capacity 
-	empty // test whether the vector is empty 
-	reserve // request a change in capacity
+		size_type size() const;
+			This is the number of actual objects held in the vector, which is not necessarily equal to its storage capacity.
 	
+	max_size // return maximum size of the vector 
+		size_type max_size() const;
+			Returns the maximum number of elements that the vector can hold.
+			This is the maximum potential size the container can reach due to known system or library implementation limitations, 
+			but the container is by no means guaranteed to be able to reach that size: it can still fail to allocate storage at any point before that size is reached.
+
+	resize // change size
+		void resize (size_type n, value_type val = value_type());
+			Resizes the container so that it contains n elements.
+			If n is smaller than the current container size, the content is reduced to its first n elements, removing those beyond (and destroying them).
+			If n is greater than the current container size, the content is expanded by inserting at the end as many elements as needed to reach a size of n. 
+			If val is specified, the new elements are initialized as copies of val, otherwise, they are value-initialized.
+			If n is also greater than the current container capacity, an automatic reallocation of the allocated storage space takes place.
+			If a reallocation happens, the storage is allocated using the container's allocator, which may throw exceptions on failure 
+			(for the default allocator, bad_alloc is thrown if the allocation request does not succeed).
+				n: New container size, expressed in number of elements. Member type size_type is an unsigned integral type.
+				val: Object whose content is copied to the added elements in case that n is greater than the current container size. 
+				If not specified, the default constructor is used instead.
+				Member type value_type is the type of the elements in the container, defined in vector as an alias of the first template parameter (T).
+				Notice that this function changes the actual content of the container by inserting or erasing elements from it.
+	
+	capacity // return size of allocated storage capacity 
+		size_type capacity() const;
+			Returns the size of the storage space currently allocated for the vector, expressed in terms of elements.
+			This capacity is not necessarily equal to the vector size. It can be equal or greater, with the extra space allowing to accommodate for growth without the need to reallocate on each insertion.
+			Notice that this capacity does not suppose a limit on the size of the vector. When this capacity is exhausted and more is needed, 
+			it is automatically expanded by the container (reallocating it storage space). The theoretical limit on the size of a vector is given by member max_size.
+			The capacity of a vector can be explicitly altered by calling member vector::reserve.
+	
+	empty // test whether the vector is empty 
+		bool empty() const;
+			Returns whether the vector is empty (i.e. whether its size is 0).
+
+	reserve // request a change in capacity
+		void reserve (size_type n);
+				n: Minimum capacity for the vector. Note that the resulting vector capacity may be equal or greater than n. Member type size_type is an unsigned integral type.
+			Requests that the vector capacity be at least enough to contain n elements.
+			If n is greater than the current vector capacity, the function causes the container to reallocate its storage increasing its capacity to n (or greater).
+			In all other cases, the function call does not cause a reallocation and the vector capacity is not affected.
+			This function has no effect on the vector size and cannot alter its elements.
+			If the size requested is greater than the maximum size (vector::max_size), a length_error exception is thrown.
+			If case of reallocation, the storage is allocated using the container's allocator, which may throw exceptions on failure 
+			(for the default allocator, bad_alloc is thrown if the allocation request does not succeed).
+
 	// ELEMENT ACCESS //
 	operator[] // access element at index
 	at // access element
@@ -128,7 +164,5 @@ vector class
 	get_allocator // get allocator 
 
 /////////////////////////////
-
-
 
 */
