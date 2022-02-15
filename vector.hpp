@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:47:04 by ablondel          #+#    #+#             */
-/*   Updated: 2022/02/15 17:01:09 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:37:07 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,24 @@
 
 namespace ft
 {
-	template < class T, class Alloc = allocator<T> > : public std::allocator
+	template < class T, class Allocator = std::allocator<T> >
 	class	vector
 	{
 		private:
 			T	*_data;
-			
-
 		protected:
 
 		public:
-			typedef T	value_type;
-			typedef		allocator_type allocator<value_type>;
-			typedef		reference value_type&;
-			typedef		const_reference const value_type&;
-			typedef		pointer value_type*;
-			typedef		const_pointer const value_type*;
-			typedef T	*iterator;
-			typedef T	*const_iterator const;
-			typedef T	*reverse_iterator;
-			typedef T	*const_reverse_iterator const;
+			typedef T				value_type;
+			typedef T*				pointer;
+			typedef	const T*		const_pointer;
+			typedef T&				reference;
+			typedef const T&		const_reference;
+			typedef std::size_t		size_type;
+			typedef T				*iterator;
+			typedef T				*const_iterator const;
+			typedef T				*reverse_iterator;
+			typedef T				*const_reverse_iterator const;
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// CONSTRUCTORS DESTRUCTORS COPY ASSIGNATION //
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +80,7 @@ namespace ft
 			void push_back ( const value_type& val );
 			void pop_back();
 			iterator insert ( iterator position, const value_type& val );
-    		void insert ( iterator position, size_type n, const value_type& val );
+			void insert ( iterator position, size_type n, const value_type& val );
 			template <class InputIterator> void insert ( iterator position, InputIterator first, InputIterator last );
 			iterator erase ( iterator position );
 			iterator erase ( iterator first, iterator last );
