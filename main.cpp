@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:41:50 by ablondel          #+#    #+#             */
-/*   Updated: 2022/02/14 18:30:15 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:10:15 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,3 +205,11 @@ vector class
 
 
 */
+
+#include "vector.hpp"
+
+int		main( void )
+{
+	ft::vector<int> v(10, 10);
+	v.print();
+}
