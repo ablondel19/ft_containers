@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:47:04 by ablondel          #+#    #+#             */
-/*   Updated: 2022/02/17 16:44:19 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:20:36 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <iostream>
 
 namespace ft
-{
-	template < class T, class Allocator = std::allocator<T> >
+{	
+	template < class T, class A = std::allocator<T> >
 	class	vector
 	{
 		private:
@@ -42,13 +42,13 @@ namespace ft
 		// OPTIONAL //
 		//////////////
 
-			void	print() {
-				for (size_t i = 0; i < _nElements; i++)
-				{
-					std::cout << _data[i] << " ";
-				}
-				std::cout << std::endl;
-			};
+		void	print() {
+			for (size_t i = 0; i < _nElements; i++)
+			{
+				std::cout << _data[i] << " ";
+			}
+			std::cout << std::endl;
+		};
 
 		/////////////
 		// GETTERS //
