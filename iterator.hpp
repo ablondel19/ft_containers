@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 18:03:04 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/09 17:35:35 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/11 02:40:22 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ namespace ft
 			random_access_iterator( const random_access_iterator &it ) : _it(it.base()) {};
 			~random_access_iterator() {};
 
-			reference operator*()	{
+			reference operator*() const	{
 				return *_it;
 			}
 
@@ -93,36 +93,6 @@ namespace ft
 				return tmp;
 			}
 
-			template <class U>
-			bool operator!=( const ft::random_access_iterator<U> &it )	{
-				return (base() != it.base());
-			}
-
-			template <class U>
-			bool operator==( const ft::random_access_iterator<U> &it )	{
-				return (base() == it.base());
-			}
-
-			template <class U>
-			bool operator<=( const ft::random_access_iterator<U> &it )	{
-				return (base() <= it.base());
-			}
-
-			template <class U>
-			bool operator>=( const ft::random_access_iterator<U> &it )	{
-				return (base() >= it.base());
-			}
-
-			template <class U>
-			bool operator>( const ft::random_access_iterator<U> &it )	{
-				return (base() > it.base());
-			}
-
-			template <class U>
-			bool operator<( const ft::random_access_iterator<U> &it )	{
-				return (base() < it.base());
-			}
-
 			random_access_iterator operator+( difference_type n ) const	{
 				return (base() + n);
 			}
@@ -141,6 +111,42 @@ namespace ft
 				return *this;
 			}
 	};
+
+	template < class T >
+	bool operator==( const ft::random_access_iterator < T > &x, const ft::random_access_iterator < T > &y )	
+	{
+		return (x.base() == y.base());
+	}
+	
+	template < class T >
+	bool operator!=( const ft::random_access_iterator < T > &x, const ft::random_access_iterator < T > &y )	
+	{
+		return (x.base() != y.base());
+	}
+
+	template < class T >
+	bool operator>=( const ft::random_access_iterator < T > &x, const ft::random_access_iterator < T > &y )	
+	{
+		return (x.base() >= y.base());
+	}
+	
+	template < class T >
+	bool operator<=( const ft::random_access_iterator < T > &x, const ft::random_access_iterator < T > &y )	
+	{
+		return (x.base() <= y.base());
+	}
+
+	template < class T >
+	bool operator>( const ft::random_access_iterator < T > &x, const ft::random_access_iterator < T > &y )	
+	{
+		return (x.base() > y.base());
+	}
+	
+	template < class T >
+	bool operator<( const ft::random_access_iterator < T > &x, const ft::random_access_iterator < T > &y )	
+	{
+		return (x.base() < y.base());
+	}
 	
 };
 

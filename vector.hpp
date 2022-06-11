@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:47:04 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/10 00:51:36 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:01:45 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,26 @@
 #include <string>
 #include "iterator.hpp"
 #include "types.hpp"
+#define ITERATOR_TYPE ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*
 
 namespace ft
 {
-	template <class T, class Alloc=std::allocator<T> >
+	template < class T, class Alloc=std::allocator < T > >
 	class	vector
 	{
 		public:
-			typedef size_t										size_type;
-			typedef ft::random_access_iterator<T>				iterator;
-			typedef ft::random_access_iterator<const T>			const_iterator;
-			//typedef ft::reverse_random_access_iterator<T>		iterator;
-			//typedef ft::reverse_random_access_iterator<const T>	const_iterator;
-			typedef Alloc										allocator_type;
-			typedef T											value_type;
-			typedef typename allocator_type::reference			reference;
-			typedef typename allocator_type::const_reference	const_reference;
-			typedef typename Alloc::pointer						pointer;
-			typedef typename Alloc::const_pointer				const_pointer;
-			typedef ptrdiff_t									difference_type;
+			typedef size_t											size_type;
+			typedef ft::random_access_iterator < T >				iterator;
+			typedef ft::random_access_iterator < const T >			const_iterator;
+			//typedef ft::reverse_random_access_iterator<T>			reverse_iterator;
+			//typedef ft::reverse_random_access_iterator<const T>	const_reverse_iterator;
+			typedef Alloc											allocator_type;
+			typedef T												value_type;
+			typedef typename allocator_type::reference				reference;
+			typedef typename allocator_type::const_reference		const_reference;
+			typedef typename Alloc::pointer							pointer;
+			typedef typename Alloc::const_pointer					const_pointer;
+			typedef ptrdiff_t										difference_type;
 
 		private:
 			allocator_type	_alloc;
@@ -71,15 +72,15 @@ namespace ft
 					_alloc.construct(&_v[i], val);
 			}
 			
-			template <class InputIterator>
-         	vector( InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type() ) : _alloc(alloc), _size(0), _capacity(0)
+			template < class InputIterator >
+         	vector( InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ITERATOR_TYPE = nullptr ) : _alloc(alloc), _size(0), _capacity(0)
 			{
-				for (iterator tmp = first; tmp != last; tmp++)
+				for (InputIterator tmp = first; tmp != last; tmp++)
 					_size++;
 				_capacity = _size;
 				_v = _alloc.allocate(_size);
 				for (size_t i = 0; i < _size; i++, first++)
-					alloc.construct(_v + i, *first);
+					_alloc.construct(&_v[i], *first);
 			}
 			
 			vector( const vector& x )
@@ -206,19 +207,15 @@ namespace ft
 				if (n < _capacity)
 					return ;
 				else if (n > max_size())
-					throw(std::length_error("Vector"));
-				else if (n > _capacity)
-				{
-					pointer tmp = _alloc.allocate(n);
-					for (size_t i = 0; i < n; i++)
-						_alloc.construct(&tmp[i], _v[i]);
-					for (size_t i = 0; i < _size; i++)
-						_alloc.destroy(&_v[i]);
-					_alloc.deallocate(_v, _capacity);
-					_v = tmp;
-					_capacity = n;
-					return ;
-				}
+					throw(std::length_error("vector"));
+				pointer tmp = _v;
+				_v = _alloc.allocate(n);
+				for (size_t i = 0; i < _size; i++)
+					_alloc.construct(&_v[i], tmp[i]);
+				for (size_t i = 0; i < _size; i++)
+					_alloc.destroy(&tmp[i]);
+				_alloc.deallocate(tmp, _capacity);
+				_capacity = n;
 			}
 		
 		////////////////////
@@ -238,14 +235,14 @@ namespace ft
 			reference at( size_t n )
 			{
 				if (n >= _size)
-					throw (std::out_of_range("ft::vector"));
+					throw (std::out_of_range("vector"));
 				return _v[n];
 			}
 			
 			const_reference	at( size_t n ) const
 			{
 				if (n >= _size)
-					throw (std::out_of_range("ft::vector"));
+					throw (std::out_of_range("vector"));
 				return _v[n];
 			}
 			
@@ -274,7 +271,7 @@ namespace ft
 		///////////////
 		
 			template <class InputIterator>
-			void assign( InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr )
+			void assign( InputIterator first, InputIterator last, typename ITERATOR_TYPE = nullptr )
 			{
 				size_t n = 0;
 				
@@ -289,7 +286,6 @@ namespace ft
 			
 			void assign( size_type n, const value_type& val )
 			{
-				resize(0);
 				reserve(n);
 				_size = n;
 				for (size_t i = 0; i < n; i++)
@@ -344,7 +340,7 @@ namespace ft
 			}
 			
 			template <class InputIterator> 
-			void insert( iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr )
+			void insert( iterator position, InputIterator first, InputIterator last, typename ITERATOR_TYPE = nullptr )
 			{
 				size_t i = 0;
 				size_t gap = 0;

@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 18:34:59 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/06 00:21:02 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/11 02:57:15 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ namespace ft
 
 	template <  >
 	struct is_integral < wchar_t > : public true_type {};
-	
+
 }
 
 #endif // !TYPES_HPP
