@@ -6,12 +6,12 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 18:34:59 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/11 02:57:15 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:43:52 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_HPP
-#define TYPES_HPP
+#ifndef ENABLE_IF_HPP
+#define ENABLE_IF_HPP
 #include <type_traits>
 
 namespace ft

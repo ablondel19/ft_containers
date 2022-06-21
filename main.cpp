@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:41:50 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/11 22:19:42 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/20 17:04:14 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,117 +23,333 @@
 
 #include "vector.hpp"
 #include "test.hpp"
+#include "iterator.hpp"
+#include "reverse_iterator.hpp"
+
 #include <memory>
 #include <iterator>
 #include <vector>
 #include <string>
 #include <iostream>
+#include <algorithm>
 
-void	test_contructors( void )
+void	run_cap_test( void )
 {
-	std::vector<int> first;                                // empty vector of ints
-	std::vector<int> second (4,100);                       // four ints with value 100
-	std::vector<int> third (second.begin(),second.end());  // iterating through second
-	std::vector<int> fourth (third);                       // a copy of third
-	int myints[] = {16,2,77,29};
-	std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
-
-	ft::vector<int> _first;                                 // empty vector of ints
-	ft::vector<int> _second (4,100);                        // four ints with value 100
-	ft::vector<int> _third (_second.begin(),_second.end()); // iterating through second
-	ft::vector<int> _fourth (_third);                       // a copy of third
-	int _myints[] = {16,2,77,29};
-	ft::vector<int> _fifth(_myints, _myints + sizeof(_myints) / sizeof(int) );
-	ft::vector<int> _sixth = _fifth;
-
-
-	LOG("Empty vector of ints\n");
-	if (_first == first)
-		;
-	LOG("Four ints with value 100\n");
-	if (_second == second)
-		;
-	LOG("Iterating through another vector\n");
-	if (_third == third)
-		;
-	LOG("Copy of another vector\n");
-	if (_fourth == fourth)
-		;
-	LOG("Built from an array of ints\n");
-	if (_fifth == fifth)
-		;
-	LOG("Built with '=' operator\n");
-	if (_sixth == fifth)
-		;
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<int> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<int> stv(r, s);
+		ft::vector<int> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_capacity_fts(ftv, stv, r, s, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned int> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned> stv(r, s);
+		ft::vector<unsigned> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_capacity_fts(ftv, stv, r, s, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned long long> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned long long> stv(r, s);
+		ft::vector<unsigned long long> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_capacity_fts(ftv, stv, r, s, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned short> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned short> stv(r, s);
+		ft::vector<unsigned short> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_capacity_fts(ftv, stv, r, s, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<signed char> gen(1, i);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<signed char> stv(r, s);
+		ft::vector<signed char> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_capacity_fts(ftv, stv, r, s, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<float> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<float> stv(r, s);
+		ft::vector<float> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_capacity_fts(ftv, stv, r, s, i);
+	}
+	return ;
 }
 
-void	test_const( void )
+void	run_access_test( void )
 {
-	std::vector<const int> first;                                // empty vector of ints
-	std::vector<const int> second (4,100);                       // four ints with value 100
-	std::vector<const int> third (second.begin(),second.end());  // iterating through second
-	std::vector<const int> fourth (third);                       // a copy of third
-	int myints[] = {16,2,77,29};
-	std::vector<const int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<int> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<int> stv(r, s);
+		ft::vector<int> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_access_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned int> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned> stv(r, s);
+		ft::vector<unsigned> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_access_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned long long> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned long long> stv(r, s);
+		ft::vector<unsigned long long> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_access_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned short> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned short> stv(r, s);
+		ft::vector<unsigned short> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_access_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<signed char> gen(1, i);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<signed char> stv(r, s);
+		ft::vector<signed char> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_access_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<float> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<float> stv(r, s);
+		ft::vector<float> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_access_fts(ftv, stv, i);
+	}
+	return ;
+}
 
-	ft::vector<const int> _first;                                 // empty vector of ints
-	ft::vector<const int> _second (4,100);                        // four ints with value 100
-	ft::vector<const int> _third (_second.begin(),_second.end()); // iterating through second
-	ft::vector<const int> _fourth (_third);                       // a copy of third
-	int _myints[] = {16,2,77,29};
-	ft::vector<const int> _fifth(_myints, _myints + sizeof(_myints) / sizeof(int) );
-	ft::vector<const int> _sixth = _fifth;
+void	run_modifiers_test( void )
+{
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<int> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<int> stv(r, s);
+		ft::vector<int> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_modifiers_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned> stv(r, s);
+		ft::vector<unsigned> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_modifiers_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned long long> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned long long> stv(r, s);
+		ft::vector<unsigned long long> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_modifiers_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<unsigned short> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<unsigned short> stv(r, s);
+		ft::vector<unsigned short> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_modifiers_fts(ftv, stv, i);
+	}
+	for (size_t i = 1; i <= 10; i++)
+	{
+		std::mt19937 rng(i);
+		std::uniform_int_distribution<float> gen(1, i * 1000000);
+		size_t r = gen(rng);
+		size_t s = gen(rng);
+		std::vector<float> stv(r, s);
+		ft::vector<float> ftv(r, s);
+		randomize(ftv, stv);
+		test_vector_modifiers_fts(ftv, stv, i);
+	}
+	return ;
+}
 
+void	run_operator_test()
+{
+	LOG("\n\nOPERATORS TESTS\n");
+	std::vector<int> foo (3,100);   // three ints with a value of 100
+	std::vector<int> bar (2,200);   // two ints with a value of 200
 
-	LOG("Empty vector of ints\n");
-	if (_first == first)
+	if (foo == bar)
+		std::cout << "foo and bar are equal\n";
+	if (foo != bar)
+		std::cout << "foo and bar are not equal\n";
+	if (foo <  bar)
+		std::cout << "foo is less than bar\n";
+	if (foo >  bar)
+		std::cout << "foo is greater than bar\n";
+	if (foo <= bar)
+		std::cout << "foo is less than or equal to bar\n";
+	if (foo >= bar)
+		std::cout << "foo is greater than or equal to bar\n";
+
+	LOG("\n");
+	ft::vector<int> _foo (3,100);   // three ints with a value of 100
+	ft::vector<int> _bar (2,200);   // two ints with a value of 200
+
+	if (_foo == _bar)
+		std::cout << "foo and bar are equal\n";
+	if (_foo != _bar)
+		std::cout << "foo and bar are not equal\n";
+	if (_foo <  _bar)
+		std::cout << "foo is less than bar\n";
+	if (_foo >  _bar)
+		std::cout << "foo is greater than bar\n";
+	if (_foo <= _bar)
+		std::cout << "foo is less than or equal to bar\n";
+	if (_foo >= _bar)
+		std::cout << "foo is greater than or equal to bar\n";
+}
+
+void	resize_test()
+{
+	std::vector<int> stv;
+	ft::vector<int> ftv;
+	
+	
+	
+	
+	
+	for (size_t i = 0; i < 10; i++)
+	{
+		stv.push_back(i);
+		ftv.push_back(i);
+	}
+	
+	std::cout << BLUE << "-----------------------------------------------------------------" << RESET << std::endl;
+	std::cout << BLUE << "resize()" << RESET << std::endl;
+	NOW(X); stv.resize(5); NOW(Y); std::cout << "STD resize() TIME: "; TIMER;	std::cout << std::endl;
+	real = timer();
+	NOW(X); ftv.resize(5); NOW(Y); std::cout << "FT resize() TIME : "; TIMER;	std::cout << std::endl;
+	fake = timer();
+	if (ftv == stv)
 		;
-	LOG("Four ints with value 100\n");
-	if (_second == second)
+	
+	NOW(X); stv.resize(8, 100); NOW(Y); std::cout << "STD resize() TIME: "; TIMER;	std::cout << std::endl;
+	real = timer();
+	NOW(X); ftv.resize(8, 100); NOW(Y); std::cout << "FT resize() TIME : "; TIMER;	std::cout << std::endl;
+	fake = timer();
+	if (ftv == stv)
 		;
-	LOG("Iterating through another vector\n");
-	if (_third == third)
+
+	NOW(X); stv.resize(12); NOW(Y); std::cout << "STD resize() TIME: "; TIMER;	std::cout << std::endl;
+	real = timer();
+	NOW(X); ftv.resize(12); NOW(Y); std::cout << "FT resize() TIME : "; TIMER;	std::cout << std::endl;
+	fake = timer();
+	if (ftv == stv)
 		;
-	LOG("Copy of another vector\n");
-	if (_fourth == fourth)
-		;
-	LOG("Built from an array of ints\n");
-	if (_fifth == fifth)
-		;
-	LOG("Built with '=' operator\n");
-	if (_sixth == fifth)
-		;
+
+	for (std::vector<int>::iterator stvit = stv.begin(); stvit != stv.end(); stvit++)
+	{
+		LOG(*stvit);
+		LOG("|");
+	}
+	LOG("\n");
+	STOP;
+	for (ft::vector<int> ::iterator ftvit = ftv.begin(); ftvit != ftv.end(); ftvit++)
+	{
+		LOG(*ftvit);
+		LOG("|");
+	}
+	LOG("\n");
+	STOP;
+	for (std::vector<int>::reverse_iterator rstvit = stv.rbegin(); rstvit != stv.rend(); rstvit++)
+	{
+		LOG(*rstvit);
+		LOG("|");
+	}
+	LOG("\n");
+	STOP;
+	for (ft::vector<int> ::reverse_iterator rftvit = ftv.rbegin(); rftvit != ftv.rend(); rftvit++)
+	{
+		LOG(*rftvit);
+		LOG("|");
+	}
+	LOG("\n");
+	STOP;
 }
 
 int		main( void )
 {
-	std::cout << BLUE << "-----------------------------------------------------------------" << RESET << std::endl;
-	std::cout << BLUE << "EMPTY VECTOR OF INTS" << RESET << std::endl;
-	std::cout << BLUE << "-----------------------------------------------------------------" << RESET << std::endl;
-	NOW(X); std::vector<int> first; NOW(Y); std::cout << std::left << "STD TIME: "; TIMER;	std::cout << std::endl;
-	real = timer();
-	NOW(X); ft::vector<int> _first; NOW(Y); std::cout << std::left << "FT  TIME: "; TIMER;	std::cout << std::endl;
-	fake = timer();
-	if (_first == first)
-		;
-
-	std::cout << BLUE << "-----------------------------------------------------------------" << RESET << std::endl;
-	std::cout << BLUE << "FOUR INTS WITH VALUE FOUR" << RESET << std::endl;
-	std::cout << BLUE << "-----------------------------------------------------------------" << RESET << std::endl;
-	NOW(X); std::vector<int> second(4, 100); NOW(Y); std::cout << std::left << "STD TIME: "; TIMER;	std::cout << std::endl;
-	real = timer();
-	NOW(X); ft::vector<int> _second(4, 100); NOW(Y); std::cout << std::left << "FT  TIME: "; TIMER;	std::cout << std::endl;
-	fake = timer();
-	if (_second == second)
-		;
-
-	
-	
-	
-
-
-
-	
+	//test_vector_constructors();
+	//run_cap_test();
+	//run_access_test();
+	//run_modifiers_test();
+	//run_operator_test();
+	resize_test();
+	LOG("*****************************************************************\n");
 	LEAKS();
+	LOG("*****************************************************************\n");
 	return 0;
 }
