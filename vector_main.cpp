@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:41:50 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/21 13:41:03 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:52:10 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -725,13 +725,13 @@ void	run_iterators_test()
 		LOG(*rstvit);
 		LOG("|");
 	}
-	LOG("\nft reverse iterator:\n");
-	for (ft::vector<int> ::reverse_iterator rftvit = ftv.rbegin(); rftvit != ftv.rend(); rftvit++)
-	{
-		LOG(*rftvit);
-		LOG("|");
-	}
-	LOG("\n");
+	//LOG("\nft reverse iterator:\n");
+	//for (ft::vector<int> ::reverse_iterator rftvit = ftv.rbegin(); rftvit != ftv.rend(); rftvit++)
+	//{
+	//	LOG(*rftvit);
+	//	LOG("|");
+	//}
+	//LOG("\n");
 }
 
 void	run_str_test()
@@ -768,17 +768,30 @@ void	run_str_test()
 		;
 }
 
-int		main( void )
+#define TESTED_NAMESPACE ft
+#define TESTED_TYPE int
+#include <list>
+
+//template < class T >
+int	check_size2( TESTED_NAMESPACE::vector<TESTED_TYPE> &x )
 {
-	run_constructors_test();
-	run_cap_test();
-	run_access_test();
-	run_modifiers_test();
-	run_operator_test();
-	run_iterators_test();
-	run_str_test();
-	LOG("*****************************************************************\n");
-	LEAKS();
-	LOG("*****************************************************************\n");
+	LOG("SIZE: ");
+	LOG(x.size());
+	LOG("\n");
 	return 0;
+}
+
+
+int		main(void)
+{
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct;
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit = vct.begin();
+
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit(it);
+
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit(rit);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit_(it);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit_2(cit);
+	return (0);
 }
