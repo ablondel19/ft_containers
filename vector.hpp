@@ -6,18 +6,30 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:47:04 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/27 11:44:13 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/28 08:10:53 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+**	https://cdn.intra.42.fr/pdf/pdf/34895/fr.subject.pdf
+**	https://www.cplusplus.com/reference/vector/vector/
+**	https://anderberg.me/2016/07/04/c-custom-iterators/
+**	https://stackoverflow.com/questions/21275190/c-custom-collection-reverse-iterator-with-similar-behaviour-to-stdvector-imp
+**	https://www.geeksforgeeks.org/program-to-create-custom-vector-class-in-c/
+**  https://www.fluentcpp.com/2018/05/15/make-sfinae-pretty-1-what-value-sfinae-brings-to-code/
+**  https://www.fluentcpp.com/2018/05/18/make-sfinae-pretty-2-hidden-beauty-sfinae/
+**  https://www.fluentcpp.com/2018/04/27/tag-dispatching/
+*/
+
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
-#include <memory>
-#include <exception>
-#include "iterator.hpp"
-#include "reverse_iterator.hpp"
-#include "enable_if.hpp"
-#include "lexicographical_compare.hpp"
+//#include <memory>
+//#include <exception>
+//#include "iterator.hpp"
+//#include "reverse_iterator.hpp"
+//#include "enable_if.hpp"
+//#include "lexicographical_compare.hpp"
+#include  "all.hpp"
 
 #define ITERATOR_TYPE ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*
 namespace ft

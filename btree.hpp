@@ -300,42 +300,6 @@ namespace ft
 				return (node2);
 			}
 
-			const_iterator	ft_find(const key_type& k) const
-			{
-				if (root == null_node)
-					return (end());
-				subtree *max = max_node(root);
-				subtree *min = min_node(root);
-				while(min != max)
-				{
-					if (min->data.first == k)
-						return(const_iterator(min, null_node, root));
-					min = next(min);
-				}
-				if (max->data.first == k)
-					return(const_iterator(max, null_node, root));
-				else
-					return (end());
-			}
-
-			iterator	ft_find(const key_type& k)
-			{
-				if (root == null_node)
-					return (end());
-				subtree *max = max_node(root);
-				subtree *min = min_node(root);
-				while(min != max)
-				{
-					if (min->data.first == k)
-						return(iterator(min, null_node, root));
-					min = next(min);
-				}
-				if (max->data.first == k)
-					return(iterator(max, null_node, root));
-				else
-					return (end());
-			}
-
 			subtree* next(subtree * node) const
 			{
 				subtree *tmp;
@@ -377,13 +341,10 @@ namespace ft
 
 			size_type	count_nodes(const key_type& k)
 			{
-				const_iterator it = ft_find(k);
-				if (ft_find(k) == end())
-					return (0);
-				return (1);
+				return (find(k) == end()) ? 0 : 1;
 			}
 
-			size_t erase (const key_type& i)
+			size_t erase(const key_type& i)
 			{
 				size_t ret  = 0;
 				if (count_nodes(i))
@@ -392,21 +353,19 @@ namespace ft
 				return (ret);
 			}
 
-			subtree* min_node(subtree *node) const
+			subtree* min_node( subtree *node ) const
 			{
-				if (node->L && node->L != null_node)
-					return (min_node(node->L));
+				for (; node->L && node->L != null_node; node = node->L);
 				return (node);
 			}
 
-			subtree* max_node(subtree *node) const
+			subtree* max_node( subtree *node ) const
 			{
-				if (node->R && node->R != null_node)
-					return (max_node(node->R));
+				for (; node->R && node->R != null_node; node = node->R);
 				return (node);
 			}
 
-			subtree* search_node(subtree * node) const
+			subtree* search_node(subtree *node) const
 			{
 				subtree *tmp;
 				if (node->R == null_node)
@@ -477,10 +436,9 @@ namespace ft
 
 			size_t size() const
 			{
-				size_t size = 0;
-				for (const_iterator it = begin() ; it != end() ; ++it)
-					++size;
-				return (size);
+				size_t ret = 0;
+				for (const_iterator it = begin(); it != end(); ++it, ++ret);
+				return (ret);
 			}
 
 			size_t count_nodes(subtree *node, size_t *i) const
@@ -494,7 +452,7 @@ namespace ft
 				return (*i);
 			}
 
-			T search(const Key &n)
+			mapped_type search(const Key &n)
 			{
 				subtree *tmp = root;
 				while (tmp != null_node)
@@ -537,6 +495,7 @@ namespace ft
 				other._alloc_node = _alloc_node;
 				_alloc_node = tmp5;
 			}
+
 
 			iterator upper_bound(const key_type& key)
 			{
@@ -604,7 +563,7 @@ namespace ft
 				return (ft::make_pair<const_iterator, const_iterator>(it, ite));
 			}
 
-			iterator find(const key_type& key)
+			iterator	find(const key_type& key)
 			{
 				if (root == null_node)
 					return (end());
@@ -638,33 +597,11 @@ namespace ft
 				return end();
 			}
 
-			size_type count( const key_type& key ) const
+			size_type	count( const key_type& key ) const
 			{
-				const_iterator it = find(key);
-				if (find(key) != end())
-					return (1);
-				return (0);
+				return (find(key) != end()) ? 1 : 0;
 			}
 
-			// FOR ME
-			//void ft_print(subtree*node)
-			//{
-			//	if (node != null_node)
-			//	{
-			//		ft_print(node->L);
-			//		ft_print(node->R);
-			//		std::cout << node->data.second << std::endl;
-			//	}
-			//}
-			//void ft_print()
-			//{
-			//	if (root != null_node)
-			//	{
-			//		ft_print(root->L);
-			//		ft_print(root->R);
-			//		std::cout << "root : " << root->data.second << std::endl;
-			//	}
-			//}
 	};
 }
 

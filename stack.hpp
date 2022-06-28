@@ -6,14 +6,13 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 16:49:00 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/26 17:09:35 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/28 08:16:19 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_HPP
 #define STACK_HPP
 #include "vector.hpp"
-#include "lexicographical_compare.hpp"
 
 namespace ft
 {
@@ -70,7 +69,6 @@ namespace ft
 	{
 		return lhs.container >= rhs.container;
 	}
-	
 
 }
 
