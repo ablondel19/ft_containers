@@ -6,21 +6,20 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:47:13 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/28 08:12:12 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:05:43 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 #define MAP_HPP
-#include "all.hpp"
-//#include <memory>
-//#include "iterator.hpp"
-//#include "pair.hpp"
-//#include "btree.hpp"
-//#include "map_iterator.hpp"
-//#include "map_reverse_iterator.hpp"
-//#include "enable_if.hpp"
-//#include "lexicographical_compare.hpp"
+#include <memory>
+#include "iterator.hpp"
+#include "pair.hpp"
+#include "btree.hpp"
+#include "map_iterator.hpp"
+#include "map_reverse_iterator.hpp"
+#include "enable_if.hpp"
+#include "lexicographical_compare.hpp"
 
 namespace ft
 {
@@ -61,7 +60,7 @@ namespace ft
 			allocator_type	_alloc;
 
 /*///////////////////////////////////////////////////////////////////////////////////////////
-//                    CONSTRUCTORS DESTRUCTORS COPY ASSIGNATION                           //
+//                    CONSTRUCTORS DESTRUCTORS COPY ASSIGNATION                            //
 ///////////////////////////////////////////////////////////////////////////////////////////*/
 
 		public:
@@ -203,7 +202,7 @@ namespace ft
 				return (const_reverse_iterator(_bst.rend()));
 			}
 
-/*///////////////////////	
+/*///////////////////////
 //      CAPACITY       //
 ///////////////////////*/
 			

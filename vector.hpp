@@ -6,7 +6,7 @@
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:47:04 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/28 08:10:53 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:15:27 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
-//#include <memory>
-//#include <exception>
-//#include "iterator.hpp"
-//#include "reverse_iterator.hpp"
-//#include "enable_if.hpp"
-//#include "lexicographical_compare.hpp"
-#include  "all.hpp"
+#include <memory>
+#include <exception>
+#include "iterator.hpp"
+#include "reverse_iterator.hpp"
+#include "enable_if.hpp"
+#include "lexicographical_compare.hpp"
 
 #define ITERATOR_TYPE ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*
 namespace ft

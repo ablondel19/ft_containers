@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_main.cpp                                     :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablondel <ablondel@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 10:46:26 by ablondel          #+#    #+#             */
-/*   Updated: 2022/06/27 10:58:47 by ablondel         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:12:54 by ablondel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.hpp"
 #include "vector.hpp"
+#include "map.hpp"
 #include <memory>
 #include <iterator>
 #include <vector>
